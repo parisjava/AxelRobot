@@ -1,5 +1,5 @@
 import mido
-
+import json
 
 
 def readNotes() :
@@ -47,7 +47,8 @@ def getHeaderInformation(track) :
 def guitarTrack(track, header, midiFile, noteMapping) :
     time = 0
     currentNote = 0
-    notes = []
+    notes = {}
+    notes["notes"] = [];
     
     for message in track :
         messageInformation = message.dict();
@@ -61,8 +62,11 @@ def guitarTrack(track, header, midiFile, noteMapping) :
             continue
         
         if (type == 'note_off' and messageInformation['note'] == currentNote) :
-            notes.append([noteMapping[currentNote], mido.tick2second(time, midiFile.ticks_per_beat, header["tempo"])])
+            notes["notes"].append({"note" : noteMapping[currentNote][0],
+                                   "octive" : noteMapping[currentNote][1],
+                                   "duration" : mido.tick2second(time, midiFile.ticks_per_beat, header["tempo"])})
             currentNote = 0
             time = 0
-    print(notes)
+    with open("notes.json", "w") as f :
+        json.dump(notes,f);
 main()
