@@ -17,10 +17,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import java.util.List;
 import java.util.ArrayList;
-import javafx.beans.property.DoubleProperty;
-import javafx.scene.layout.ColumnConstraints;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 
 /**
  *
@@ -83,4 +88,39 @@ public class FXMLDocumentController implements Initializable {
         }
         index = 0;
     }
+    
+    public void imageClicked(MouseEvent event) {
+        Object source = event.getSource();
+        if (source == image1) {
+            System.out.println("image one clicked");
+        }
+        if (source == image2) {
+            System.out.println("image two clicked");
+        }
+        
+        if (source == image3) {
+            System.out.println("image three clicked");
+        }
+        
+        if (source == image4) {
+            System.out.println("image 4 clicked");
+        }
+        try {
+            switchScene((Stage)(((Node)source).getScene().getWindow()));
+        } catch (Exception e) {
+            System.out.println("Something Happened");
+        }
+    }
+    
+    private void switchScene(Stage stage) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("SongClicked.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
