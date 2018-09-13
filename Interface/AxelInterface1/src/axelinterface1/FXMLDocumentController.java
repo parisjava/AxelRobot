@@ -17,15 +17,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
+import javafx.animation.FadeTransition;
+import javafx.event.Event;
+import javafx.scene.input.SwipeEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -34,7 +31,7 @@ import javafx.stage.Stage;
 public class FXMLDocumentController implements Initializable {
     private static final String imageUrl = "src/axelinterface1/images/";
     private static final String fileName = "src/axelinterface1/images.txt";
-    
+    private static final int DURATION = 1000;
     @FXML
     private ImageView image1;
     @FXML
@@ -48,6 +45,7 @@ public class FXMLDocumentController implements Initializable {
     
     private List<Image> images;
     private List<ImageView> views;
+    private List<FadeTransition> transitions;
     private int index;
     
     
@@ -55,13 +53,15 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.readFile();
         this.views = new ArrayList<>();
+        this.transitions = new ArrayList<>();
         views.add(image1);
         views.add(image2);
         views.add(image3);
         views.add(image4);
         initGrid();
-        for (int x = 0; x < 4; x++) {
+        for (int x = 0; x < views.size(); x++) {
             views.get(x).setImage(images.get((index + x)% images.size()));
+            transitions.add(new FadeTransition(Duration.millis(DURATION), views.get(x)));
         }
     } 
     
@@ -89,7 +89,8 @@ public class FXMLDocumentController implements Initializable {
         index = 0;
     }
     
-    public void imageClicked(MouseEvent event) {
+    
+    public void imageTouched(Event event) {
         Object source = event.getSource();
         if (source == image1) {
             System.out.println("image one clicked");
@@ -106,21 +107,22 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("image 4 clicked");
         }
         try {
-            switchScene((Stage)(((Node)source).getScene().getWindow()));
+            SwitchScene.switchScene("SongClicked.fxml", SwitchScene.convertEvent(event));
         } catch (Exception e) {
-            System.out.println("Something Happened");
+            System.out.println(e.getMessage());
         }
     }
     
-    private void switchScene(Stage stage) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("SongClicked.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+    public void swiped(Event event) {
+        System.out.println("SWIPE EVENT");
+        index += 4;
+        for (int x = 0; x < views.size(); x++) {
+            transitions.get(x).playFromStart();
+            views.get(x).setImage(images.get((x + index) % images.size()));
         }
+        
+        
     }
+    
 
 }

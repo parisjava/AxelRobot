@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="axelinterface1.SongClickedController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="axelinterface1.SongClickedController">
    <children>
-      <Label layoutX="154.0" layoutY="147.0" prefHeight="107.0" prefWidth="293.0" text="The song should start playing soon." textFill="#777a1f" />
+      <Label layoutX="154.0" layoutY="147.0" prefHeight="107.0" prefWidth="293.0" text="      The song should start playing soon." textFill="#777a1f" />
+      <Button fx:id="goBack" layoutX="462.0" layoutY="318.0" mnemonicParsing="false" onAction="#clicked" text="Go Back" />
    </children>
 </AnchorPane>

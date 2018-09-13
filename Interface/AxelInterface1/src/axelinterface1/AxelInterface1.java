@@ -24,6 +24,7 @@ public class AxelInterface1 extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 
@@ -31,6 +32,7 @@ public class AxelInterface1 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("Something happened");
         launch(args);
     }
     

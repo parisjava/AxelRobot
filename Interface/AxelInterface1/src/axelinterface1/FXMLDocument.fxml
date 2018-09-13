@@ -19,10 +19,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="image1" fitHeight="122.0" fitWidth="194.0" onMouseClicked="#imageClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="image3" fitHeight="122.0" fitWidth="194.0" onMouseClicked="#imageClicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-            <ImageView fx:id="image2" fitHeight="122.0" fitWidth="194.0" onMouseClicked="#imageClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-            <ImageView fx:id="image4" fitHeight="122.0" fitWidth="194.0" onMouseClicked="#imageClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView fx:id="image1" fitHeight="122.0" fitWidth="194.0" onMouseClicked="#imageTouched" onMouseDragged="#swiped" onSwipeLeft="#swiped" onSwipeRight="#swiped" onTouchPressed="#imageTouched" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="image3" fitHeight="122.0" fitWidth="194.0" onMouseClicked="#imageTouched" onMouseDragged="#swiped" onSwipeLeft="#swiped" onSwipeRight="#swiped" onTouchPressed="#imageTouched" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <ImageView fx:id="image2" fitHeight="122.0" fitWidth="194.0" onMouseClicked="#imageTouched" onMouseDragged="#swiped" onSwipeLeft="#swiped" onSwipeRight="#swiped" onTouchPressed="#imageTouched" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView fx:id="image4" fitHeight="122.0" fitWidth="194.0" onMouseClicked="#imageTouched" onMouseDragged="#swiped" onSwipeLeft="#swiped" onSwipeRight="#swiped" onTouchMoved="#imageTouched" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>
