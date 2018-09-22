@@ -1,6 +1,9 @@
 import mido
 import json
+import math
 
+
+timeSlice = 100; #slice in miliseconds
 
 def readNotes() :
     name = "MidiNotes.txt"
@@ -44,29 +47,44 @@ def getHeaderInformation(track) :
             headerInformation["tempo"] = messageInformation["tempo"]
     return headerInformation       
 
+def insertNote(notes, note, duration) :
+    for x in range(duration) :
+        notes.append({"note" : note})
+        
+        
+def addToNotes(notes, note, time, duration, slice) :
+    print(time)
+    print(duration)
+    time = math.ceil(time/slice)
+    insertNote(notes, "rest", time - len(notes))
+    duration = math.ceil((time + duration)/slice) - time
+    insertNote(notes, note, duration)
+    return (time + duration) * 10
+
 def guitarTrack(track, header, midiFile, noteMapping) :
     time = 0
+    startTime = 0;
     currentNote = 0
-    notes = {}
-    notes["notes"] = [];
+    notes = []
     
     for message in track :
         messageInformation = message.dict();
-        #print(messageInformation)
         time += messageInformation['time']
-
+        
         type = messageInformation['type'];
         
         if (type == 'note_on' and currentNote == 0) :
             currentNote = messageInformation['note']
+            startTime = time
             continue
         
         if (type == 'note_off' and messageInformation['note'] == currentNote) :
-            notes["notes"].append({"note" : noteMapping[currentNote][0],
-                                   "octive" : noteMapping[currentNote][1],
-                                   "duration" : mido.tick2second(time, midiFile.ticks_per_beat, header["tempo"])})
+            duration = mido.tick2second(time - startTime,
+                midiFile.ticks_per_beat, header["tempo"]) * 1000;
+            time = mido.tick
+            time = addToNotes(notes, noteMapping[currentNote][0],
+                startTime, duration, timeSlice)
             currentNote = 0
-            time = 0
     with open("notes.json", "w") as f :
         json.dump(notes,f);
 main()
