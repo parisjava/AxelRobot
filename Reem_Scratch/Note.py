@@ -10,11 +10,17 @@ open_D = arr.array('i', [x + 10 for x in range(12)])
 open_G = arr.array('i', [x + 15 for x in range(12)])
 open_B = arr.array('i', [x + 19 for x in range(12)])
 open_e = arr.array('i', [x + 24 for x in range(12)])
+mid_list = arr.array('d', midpoint_list)
 
+
+"""
 print(open_E)
 print(open_A)
 print(open_D)
 print(open_G)
 print(open_B)
 print(open_e)
+print(mid_list)
+"""
+
 
