@@ -42,8 +42,8 @@ def musical_notes_array():
     print(open_B)
     print(open_e)
     print(mid_list)
-
     return d
+
 
 def main():
     musical_notes_array()
