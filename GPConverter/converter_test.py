@@ -8,6 +8,7 @@ for track in song.tracks:
         for voice in measure.voices:
             for beat in voice.beats:
                 for note in beat.notes:
+                    print("string: %r" % note.string)
                     print("value: %r" % note.value)
                     print("beat: %r" % note.beat)
                     print("duration percent: %r" % note.durationPercent)
